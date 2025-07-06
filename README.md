@@ -9,6 +9,7 @@ A Python API that generates dynamic SVG charts for GitHub repository statistics,
 - 📊 **Repository Statistics**: Stars, forks, issues, commits, and more
 - 👥 **Contributor Analytics**: Individual contributor statistics and activity heatmaps
 - 📈 **Activity Charts**: Commit activity visualization over time
+- 🎬 **Text Animation**: Animated typing/untyping text effects with multiple themes
 - 🎨 **Multiple Themes**: Light and dark themes with customizable colors
 - 🚀 **Fast & Cached**: Redis caching for optimal performance
 - 🔄 **Real-time Data**: Syncs with GitHub API for up-to-date information
@@ -103,7 +104,28 @@ GET /api/activity/{owner}/{repo}.svg
 <img src="http://localhost:8000/api/activity/microsoft/vscode.svg" />
 ```
 
-**Parameters (all endpoints):**
+### 🎬 Text Animation
+
+Generate animated text with typing effects:
+
+```
+GET /api/text?text={your_text}
+```
+
+**Example:**
+```html
+<img src="http://localhost:8000/api/text?text=Hello%20World&theme=matrix" />
+```
+
+**Parameters:**
+- `text`: Text to animate (default: "Hello World")
+- `font_size`: Font size in pixels (default: 24)
+- `color`: Text color in hex (default: "#ffffff")
+- `bg_color`: Background color in hex (default: "#000000")
+- `speed`: Animation speed in seconds per character (default: 0.5)
+- `theme`: Predefined theme: `default`, `dark`, `light`, `matrix`, `neon`
+
+**Repository endpoints parameters:**
 - `theme`: `default` or `dark` (optional)
 
 ### Contributor Statistics
@@ -129,6 +151,7 @@ GET /api/contributor/{owner}/{repo}/{username}.svg
 | `GET /api/embed/{owner}/{repo}.svg` | 📊 Repository stats SVG | `theme` (optional) |
 | `GET /api/contributor/{owner}/{repo}/{username}.svg` | 👥 Contributor stats SVG | `theme` (optional) |
 | `GET /api/activity/{owner}/{repo}.svg` | 📈 Commit activity chart SVG | `theme` (optional) |
+| `GET /api/text` | 🎬 Animated text with typing effects | `text`, `font_size`, `color`, `bg_color`, `speed`, `theme` |
 
 ## 🎨 Dashboard Styles
 
@@ -191,6 +214,18 @@ Add `?theme=dark` to any endpoint to use the dark theme.
 ### 👥 Individual Contributor
 ```markdown
 ![Contributor Stats](http://localhost:8000/api/contributor/microsoft/vscode/bpasero.svg)
+```
+
+### 🎬 Animated Text
+```markdown
+<!-- Basic animation -->
+![Animated Text](http://localhost:8000/api/text?text=Hello%20World)
+
+<!-- Matrix theme -->
+![Matrix Text](http://localhost:8000/api/text?text=Welcome%20to%20the%20Matrix&theme=matrix)
+
+<!-- Custom styling -->
+![Custom Text](http://localhost:8000/api/text?text=Custom%20Style&color=%23ff6b6b&bg_color=%23282c34&font_size=32)
 ```
 
 ### 🎨 Theme Variations

@@ -920,3 +920,147 @@ class SVGGenerator:
         ]
 
         return '\n'.join(circle_parts)
+
+    def generate_animated_text(self, text: str = "Hello World", font_size: int = 24,
+                             color: str = "#ffffff", bg_color: str = "#000000",
+                             speed: float = 0.5, theme: str = "default") -> str:
+        """Generate animated text SVG with typing and untyping effect"""
+
+        # Handle empty text
+        if not text or text.strip() == "":
+            text = "Hello World"
+
+        # Theme-based colors
+        if theme == "dark":
+            bg_color = "#0d1117"
+            color = "#f0f6fc"
+        elif theme == "light":
+            bg_color = "#ffffff"
+            color = "#24292f"
+        elif theme == "matrix":
+            bg_color = "#000000"
+            color = "#00ff00"
+        elif theme == "neon":
+            bg_color = "#1a1a2e"
+            color = "#16213e"
+
+        # Calculate dimensions
+        char_width = font_size * 0.6  # Approximate character width
+        text_width = len(text) * char_width
+        padding = 40
+        width = max(400, int(text_width + padding * 2))
+        height = font_size + padding * 2
+
+        # Animation timing
+        char_duration = speed  # seconds per character
+        total_type_time = len(text) * char_duration
+        pause_time = 1.0  # pause at full text
+        total_untype_time = len(text) * char_duration * 0.7  # untype faster
+        total_animation_time = total_type_time + pause_time + total_untype_time
+
+        # Generate keyframes for typing effect
+        typing_keyframes = []
+        untyping_keyframes = []
+
+        # Typing animation keyframes
+        for i in range(len(text) + 1):
+            time_percent = (i * char_duration / total_animation_time) * 100
+            visible_text = text[:i]
+            typing_keyframes.append(f'{time_percent:.1f}% {{ opacity: 1; }} ')
+
+        # Pause keyframe
+        pause_start = (total_type_time / total_animation_time) * 100
+        pause_end = ((total_type_time + pause_time) / total_animation_time) * 100
+
+        # Untyping animation keyframes
+        untype_start = pause_end
+        for i in range(len(text), -1, -1):
+            progress = (len(text) - i) / len(text)
+            time_percent = untype_start + (progress * (total_untype_time / total_animation_time) * 100)
+            untyping_keyframes.append(f'{time_percent:.1f}% {{ opacity: 1; }} ')
+
+        # Create individual character animations
+        char_animations = []
+        for i, char in enumerate(text):
+            # When this character appears (typing)
+            appear_time = (i * char_duration / total_animation_time) * 100
+            # When this character disappears (untyping)
+            disappear_time = pause_end + ((len(text) - i - 1) * char_duration * 0.7 / total_animation_time) * 100
+
+            char_x = padding + i * char_width
+            char_y = padding + font_size * 0.7
+
+            char_animations.append(f'''
+                <text x="{char_x}" y="{char_y}"
+                      font-family="'Courier New', monospace"
+                      font-size="{font_size}"
+                      font-weight="bold"
+                      fill="{color}"
+                      opacity="0">
+                    {char}
+                    <animate attributeName="opacity"
+                             values="0;1;1;0;0"
+                             dur="{total_animation_time}s"
+                             keyTimes="0;{appear_time/100:.3f};{pause_end/100:.3f};{disappear_time/100:.3f};1"
+                             repeatCount="indefinite"/>
+                </text>''')
+
+        # Cursor animation
+        cursor_x = padding + len(text) * char_width + 5
+        cursor_y = char_y
+
+        svg_parts = [
+            f'<svg width="{width}" height="{height}" xmlns="http://www.w3.org/2000/svg">',
+            f'<rect width="{width}" height="{height}" fill="{bg_color}"/>',
+
+            # Add subtle background pattern for some themes
+            self._generate_background_pattern(width, height, theme),
+
+            # Animated characters
+            *char_animations,
+
+            # Blinking cursor
+            f'''<text x="{cursor_x}" y="{cursor_y}"
+                      font-family="'Courier New', monospace"
+                      font-size="{font_size}"
+                      font-weight="bold"
+                      fill="{color}">
+                |
+                <animate attributeName="opacity"
+                         values="1;0;1"
+                         dur="1s"
+                         repeatCount="indefinite"/>
+            </text>''',
+
+            # Title/watermark
+            f'<text x="{width-10}" y="{height-10}" font-family="Arial, sans-serif" font-size="8" fill="{color}" opacity="0.3" text-anchor="end">Animated by RepoStats API</text>',
+
+            '</svg>'
+        ]
+
+        return '\n'.join(svg_parts)
+
+    def _generate_background_pattern(self, width: int, height: int, theme: str) -> str:
+        """Generate background pattern based on theme"""
+        if theme == "matrix":
+            return f'''
+                <defs>
+                    <pattern id="matrix" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                        <rect width="20" height="20" fill="#000000"/>
+                        <text x="10" y="15" font-family="monospace" font-size="10" fill="#003300" text-anchor="middle" opacity="0.3">0</text>
+                    </pattern>
+                </defs>
+                <rect width="{width}" height="{height}" fill="url(#matrix)"/>
+            '''
+        elif theme == "neon":
+            return f'''
+                <defs>
+                    <radialGradient id="neonGlow" cx="50%" cy="50%" r="50%">
+                        <stop offset="0%" style="stop-color:#16213e;stop-opacity:0.8"/>
+                        <stop offset="100%" style="stop-color:#1a1a2e;stop-opacity:1"/>
+                    </radialGradient>
+                </defs>
+                <rect width="{width}" height="{height}" fill="url(#neonGlow)"/>
+            '''
+        else:
+            return ""

@@ -41,7 +41,8 @@ async def root():
             "/api/contributor/{owner}/{repo}/{username}.svg": "Generate contributor stats SVG",
             "/api/activity/{owner}/{repo}.svg": "Generate commit activity chart SVG",
             "/api/repobeats/{owner}/{repo}.svg": "Generate RepoBeats-style comprehensive dashboard SVG",
-            "/api/modern/{owner}/{repo}.svg": "Generate modern dark dashboard SVG"
+            "/api/modern/{owner}/{repo}.svg": "Generate modern dark dashboard SVG",
+            "/api/text": "Generate animated text SVG with typing effect"
         }
     }
 
@@ -156,6 +157,41 @@ async def get_modern_dark_dashboard(owner: str, repo: str, theme: str = "dark"):
 
         # Generate SVG
         svg_content = svg_generator.generate_modern_dark_dashboard(repo_data, theme)
+
+        # Cache the result
+        await cache_manager.set(cache_key, svg_content, expire=3600)  # 1 hour cache
+
+        return Response(content=svg_content, media_type="image/svg+xml")
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/text")
+async def get_animated_text(
+    text: str = "Hello World",
+    font_size: int = 24,
+    color: str = "#ffffff",
+    bg_color: str = "#000000",
+    speed: float = 0.5,
+    theme: str = "default"
+):
+    """Generate animated text SVG with typing effect"""
+    try:
+        # Check cache first
+        cache_key = f"text_animation:{text}:{font_size}:{color}:{bg_color}:{speed}:{theme}"
+        cached_svg = await cache_manager.get(cache_key)
+        if cached_svg:
+            return Response(content=cached_svg, media_type="image/svg+xml")
+
+        # Generate animated text SVG
+        svg_content = svg_generator.generate_animated_text(
+            text=text,
+            font_size=font_size,
+            color=color,
+            bg_color=bg_color,
+            speed=speed,
+            theme=theme
+        )
 
         # Cache the result
         await cache_manager.set(cache_key, svg_content, expire=3600)  # 1 hour cache
