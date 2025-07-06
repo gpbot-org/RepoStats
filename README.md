@@ -20,8 +20,8 @@ A Python API that generates dynamic SVG charts for GitHub repository statistics,
 
 ```bash
 # Clone the repository
-git clone <your-repo-url>
-cd github-stats-svg-api
+git clone https://github.com/gpbot-org/RepoStats
+cd ReStats
 
 # Install dependencies
 pip install -r requirements.txt
