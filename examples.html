@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Stats SVG API - Examples</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f6f8fa;
+        }
+        .container {
+            background: white;
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #24292e;
+            border-bottom: 1px solid #e1e4e8;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #0366d6;
+            margin-top: 40px;
+        }
+        .example {
+            margin: 20px 0;
+            padding: 20px;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            background-color: #f6f8fa;
+        }
+        .example h3 {
+            margin-top: 0;
+            color: #24292e;
+        }
+        .example img {
+            max-width: 100%;
+            border: 1px solid #e1e4e8;
+            border-radius: 6px;
+            background: white;
+        }
+        .code {
+            background: #f6f8fa;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: 'SFMono-Regular', Consolas, monospace;
+            font-size: 14px;
+            margin: 10px 0;
+            overflow-x: auto;
+        }
+        .dark-example {
+            background-color: #0d1117;
+            border-color: #30363d;
+        }
+        .dark-example h3 {
+            color: #f0f6fc;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 4px;
+            margin: 20px 0;
+        }
+        .status.success {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+        }
+        .status.error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 GitHub Stats SVG API - Live Examples</h1>
+        
+        <div id="status" class="status">
+            <strong>Status:</strong> Checking API connection...
+        </div>
+
+        <p>This page demonstrates the GitHub Stats SVG API with live examples. The API generates beautiful, dynamic SVG charts for GitHub repository statistics.</p>
+
+        <h2>🌙 Modern Dark Dashboard</h2>
+
+        <div class="example dark-example">
+            <h3>✨ Your Repository: Modern Sleek Design</h3>
+            <div class="code">
+                &lt;img src="http://localhost:8000/api/modern/gpbot-org/gpColor.svg" /&gt;
+            </div>
+            <img src="gpcolor_modern_dark.svg" alt="Modern Dark Dashboard" style="max-width: 100%; border: 1px solid #404040; background: #1a1a1a; padding: 10px; border-radius: 8px;" />
+            <p style="color: #f0f6fc;"><strong>Features:</strong> Dark theme • Colorful line charts • Circular stats • Modern typography • Sleek card design</p>
+        </div>
+
+        <h2>🎨 Exact RepoBeats-Style Dashboard</h2>
+
+        <div class="example">
+            <h3>📊 Demo: Exact RepoBeats Style (Light Theme)</h3>
+            <div class="code">
+                &lt;img src="demo_repobeats_light.svg" /&gt;
+            </div>
+            <img src="demo_repobeats_light.svg" alt="Exact RepoBeats Style Light" style="max-width: 100%; border: 1px solid #e1e4e8;" />
+            <p><strong>Features:</strong> 240 Contributions header • Issue Ratio card • PR Opened card • Commits card • Colorful bar charts • GitHub-style contributor heatmaps</p>
+        </div>
+
+        <div class="example dark-example">
+            <h3>🌙 Demo: Exact RepoBeats Style (Dark Theme)</h3>
+            <div class="code">
+                &lt;img src="demo_repobeats_dark.svg" /&gt;
+            </div>
+            <img src="demo_repobeats_dark.svg" alt="Exact RepoBeats Style Dark" style="max-width: 100%; border: 1px solid #30363d;" />
+            <p style="color: #f0f6fc;"><strong>Features:</strong> Same layout with dark theme colors • Perfect for dark mode README files</p>
+        </div>
+
+        <div class="example">
+            <h3>🚀 Live API: Your Repository (with GitHub token)</h3>
+            <div class="code">
+                &lt;img src="http://localhost:8000/api/repobeats/gpbot-org/gpColor.svg" /&gt;
+            </div>
+            <p><strong>Note:</strong> Add GitHub token to .env file to see live data for your repository!</p>
+        </div>
+
+        <h2>📊 Repository Statistics</h2>
+
+        <div class="example">
+            <h3>Microsoft VS Code - Default Theme</h3>
+            <div class="code">
+                &lt;img src="http://localhost:8000/api/embed/microsoft/vscode.svg" /&gt;
+            </div>
+            <img src="http://localhost:8000/api/embed/microsoft/vscode.svg" alt="VS Code Stats" />
+        </div>
+
+        <div class="example dark-example">
+            <h3>Microsoft VS Code - Dark Theme</h3>
+            <div class="code">
+                &lt;img src="http://localhost:8000/api/embed/microsoft/vscode.svg?theme=dark" /&gt;
+            </div>
+            <img src="http://localhost:8000/api/embed/microsoft/vscode.svg?theme=dark" alt="VS Code Stats Dark" />
+        </div>
+
+        <div class="example">
+            <h3>React Repository</h3>
+            <div class="code">
+                &lt;img src="http://localhost:8000/api/embed/facebook/react.svg" /&gt;
+            </div>
+            <img src="http://localhost:8000/api/embed/facebook/react.svg" alt="React Stats" />
+        </div>
+
+        <h2>📈 Commit Activity Charts</h2>
+        
+        <div class="example">
+            <h3>VS Code Commit Activity</h3>
+            <div class="code">
+                &lt;img src="http://localhost:8000/api/activity/microsoft/vscode.svg" /&gt;
+            </div>
+            <img src="http://localhost:8000/api/activity/microsoft/vscode.svg" alt="VS Code Activity" />
+        </div>
+
+        <h2>👤 Contributor Statistics</h2>
+        
+        <div class="example">
+            <h3>Individual Contributor Stats</h3>
+            <div class="code">
+                &lt;img src="http://localhost:8000/api/contributor/microsoft/vscode/bpasero.svg" /&gt;
+            </div>
+            <img src="http://localhost:8000/api/contributor/microsoft/vscode/bpasero.svg" alt="Contributor Stats" />
+        </div>
+
+        <h2>🔗 Usage in README.md</h2>
+        
+        <div class="example">
+            <h3>Markdown Example</h3>
+            <div class="code">
+![RepoBeats Style Dashboard](http://localhost:8000/api/repobeats/your-username/your-repo.svg)
+
+![Repository Stats](http://localhost:8000/api/embed/your-username/your-repo.svg)
+
+![Repository Stats Dark](http://localhost:8000/api/embed/your-username/your-repo.svg?theme=dark)
+
+![Commit Activity](http://localhost:8000/api/activity/your-username/your-repo.svg)
+
+![Contributor Stats](http://localhost:8000/api/contributor/your-username/your-repo/your-username.svg)
+            </div>
+        </div>
+
+        <h2>🎨 Available Themes</h2>
+        <ul>
+            <li><strong>default</strong> - Light theme with GitHub-style colors</li>
+            <li><strong>dark</strong> - Dark theme optimized for dark mode README files</li>
+        </ul>
+
+        <h2>📚 API Endpoints</h2>
+        <ul>
+            <li><code>GET /api/modern/{owner}/{repo}.svg</code> - 🌙 Modern dark dashboard with sleek design</li>
+            <li><code>GET /api/repobeats/{owner}/{repo}.svg</code> - 🎨 RepoBeats-style comprehensive dashboard</li>
+            <li><code>GET /api/embed/{owner}/{repo}.svg</code> - Repository statistics</li>
+            <li><code>GET /api/contributor/{owner}/{repo}/{username}.svg</code> - Contributor statistics</li>
+            <li><code>GET /api/activity/{owner}/{repo}.svg</code> - Commit activity chart</li>
+        </ul>
+
+        <p><strong>Note:</strong> Make sure the API server is running on <code>http://localhost:8000</code> to see the live examples.</p>
+    </div>
+
+    <script>
+        // Check API status
+        fetch('http://localhost:8000/')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('status').className = 'status success';
+                document.getElementById('status').innerHTML = `<strong>Status:</strong> ✅ API is running (${data.version})`;
+            })
+            .catch(error => {
+                document.getElementById('status').className = 'status error';
+                document.getElementById('status').innerHTML = '<strong>Status:</strong> ❌ API is not accessible. Make sure the server is running on http://localhost:8000';
+            });
+    </script>
+</body>
+</html>
